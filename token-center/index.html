@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Token Center · 免费 AI 额度导航站｜可领的大模型 API 与工具额度</title>
+<meta name="description" content="Token Center（Token 中心）是纯静态的免费 AI 额度导航站：汇总当下还能领取的大模型 API、AI 工具与限时活动额度，标注免费类型、额度摘要与截止时间，直接跳转官方入口。无需注册、不追踪、不收集个人信息。">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%232E6D7E'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">
+      <span class="brand-mark"><span></span></span>
+      Token Center<em>Token 中心</em>
+    </a>
+    <nav class="nav-links">
+      <a href="#list">全部 token</a>
+      <a href="#howto">领用三步</a>
+      <a href="#watchlist">观望区</a>
+      <a href="#retired">已下架</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+    <div class="nav-right">
+      <span class="nav-stamp">核验 <span id="stamp-date">—</span></span>
+      <button class="nav-toggle" id="navToggle" aria-label="打开导航菜单" aria-expanded="false">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M2 4h12M2 8h12M2 12h12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="nav-drawer" id="navDrawer">
+    <a href="#list">全部 token</a>
+    <a href="#howto">领用三步</a>
+    <a href="#watchlist">观望区</a>
+    <a href="#retired">已下架</a>
+    <a href="#faq">常见问题</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow"><i></i>每日核验 · 手动整理 · 不追踪</span>
+      <h1>把还能领的<span class="hl">免费 AI 额度</span><br>一次找齐</h1>
+      <p class="sub">
+        收录 <b id="hero-count">—</b> 个当下可领的额度，写明免费类型、额度摘要与<span class="nw">截止时间</span>。<br class="sub-br">
+        点开卡片就是<span class="nw">官方入口</span>，侧栏广告位单独标注、<span class="nw">不影响收录</span>。
+      </p>
+
+      <div class="search">
+        <svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.6"/><path d="M10.6 10.6L14 14"/></svg>
+        <input id="q" type="search" placeholder="搜平台名或模型，例如 DeepSeek / GLM / 火山" aria-label="搜索额度" autocomplete="off">
+        <kbd>/</kbd>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b class="accent" id="stat-items">0</b><span>可领额度</span></div>
+        <div class="stat"><b id="stat-event">0</b><span>限时活动</span></div>
+        <div class="stat"><b id="stat-watch">0</b><span>观望中</span></div>
+        <div class="stat"><b id="stat-retired">0</b><span>已下架</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="list">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-title">
+          <span class="sec-idx">01</span>
+          <h2>全部 token</h2>
+        </div>
+        <p class="sec-desc">按“官方还能领、且能真正调用模型”收录。额度随时会变，以各平台控制台为准。</p>
+      </div>
+
+      <div class="filters">
+        <button class="chip on" data-cat="all">全部<span class="n" id="c-all">0</span></button>
+        <button class="chip" data-cat="model">大模型额度<span class="n" id="c-model">0</span></button>
+        <button class="chip" data-cat="tool">AI 工具<span class="n" id="c-tool">0</span></button>
+        <button class="chip" data-cat="event">限时活动<span class="n" id="c-event">0</span></button>
+        <button class="toggle" id="onlyDl"><i></i>只看有截止日</button>
+        <span class="result-count" id="resultCount"></span>
+      </div>
+
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="section" id="howto">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-title">
+          <span class="sec-idx">02</span>
+          <h2>领用三步</h2>
+        </div>
+        <p class="sec-desc">不用会写代码也能先把额度拿到手；要接 API 时再看第三步。</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-n">STEP 01</span>
+          <h3>挑一个入口</h3>
+          <p>先看免费类型：想长期用挑“长期免费 / 免费层”，想短期冲量挑“限时活动”，别在快截止的活动上做长期项目。</p>
+        </div>
+        <div class="step">
+          <span class="step-n">STEP 02</span>
+          <h3>用官方账号注册</h3>
+          <p>手机号或邮箱注册、按提示实名。赠送额度通常在注册后自动到账，部分平台要去活动页手动领取。</p>
+        </div>
+        <div class="step">
+          <span class="step-n">STEP 03</span>
+          <h3>建 Key 直接调用</h3>
+          <p>在控制台创建 API Key，把 base_url 换成平台地址即可。多数平台兼容 OpenAI 格式，客户端里填上就能跑。</p>
+        </div>
+      </div>
+      <div class="hint">
+        <span>提示</span>
+        <p><b>额度是“现在”的，不是“永久”的。</b>平台常改规则，用之前点进控制台确认一眼；本站只做入口与摘要，不代领、不代跑。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="watchlist">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-title">
+          <span class="sec-idx">03</span>
+          <h2>观望区</h2>
+        </div>
+        <p class="sec-desc">政策不稳、额度存疑或需特殊网络环境的平台，先留入口观察，暂不上首页。</p>
+        <span class="sec-note" id="watch-count"></span>
+      </div>
+      <div class="rows" id="watchRows"></div>
+    </div>
+  </section>
+
+  <section class="section" id="retired">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-title">
+          <span class="sec-idx">04</span>
+          <h2>已下架</h2>
+        </div>
+        <p class="sec-desc">免费额度已取消、入口转付费或活动结束的，统一放在这里，避免白跑一趟。</p>
+        <span class="sec-note" id="retired-count"></span>
+      </div>
+      <div class="rows" id="retiredRows"></div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="sec-title">
+          <span class="sec-idx">05</span>
+          <h2>常见问题</h2>
+        </div>
+        <p class="sec-desc">关于收录标准、更新节奏与怎么用，几个直接的答案。</p>
+      </div>
+      <div class="faq">
+        <div class="faq-item">
+          <h3><span class="q">Q1</span>要注册、要付费吗？</h3>
+          <p>都不用。整站是纯静态页面，打开就能看，不收集个人信息、没有登录。左右侧栏是广告位，单独标注、与收录结果无关；所有领取动作都在各平台官方页面完成。</p>
+        </div>
+        <div class="faq-item">
+          <h3><span class="q">Q2</span>收录标准是什么？</h3>
+          <p>只收“现在还能领、并且能直接调用模型”的入口：长期免费、注册赠送、每日赠送、免费层、限时活动五类。额度太小、只送一次性体验金、或必须绑卡才发额度的，一般放进观望区。</p>
+        </div>
+        <div class="faq-item">
+          <h3><span class="q">Q3</span>额度会一直有效吗？</h3>
+          <p>不会。免费额度天生有时效，平台可能随时收紧或取消。卡片上的截止日只针对“活动领取窗口”，不代表额度永久有效，用前请在控制台确认。</p>
+        </div>
+        <div class="faq-item">
+          <h3><span class="q">Q4</span>领不到 / 链接失效怎么办？</h3>
+          <p>先确认是不是地区限制或需要实名。若入口确实失效，改 <code>assets/data.js</code> 里对应条目即可——整站数据都在这一个文件里，删一行就等于下架。</p>
+        </div>
+        <div class="faq-item">
+          <h3><span class="q">Q5</span>能帮我接入 API、写代码吗？</h3>
+          <p>这里只做导航与摘要，不代接、不代跑。第三步给了通用接法：换成平台的 base_url 和 Key，多数客户端都能直接用。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-in">
+      <div>
+        <div class="foot-brand"><span class="brand-mark"><span></span></span>Token Center · Token 中心</div>
+        <p class="foot-desc">
+          一个不登录、不追踪、不带返佣参数的免费 AI 额度导航站。只告诉你哪家还能领、能领多少、什么时候截止，剩下的交给官方页面。
+        </p>
+      </div>
+      <div>
+        <div class="foot-h">目录</div>
+        <div class="foot-links">
+          <a href="#list">全部 token</a>
+          <a href="#watchlist">观望区</a>
+          <a href="#retired">已下架</a>
+          <a href="#faq">常见问题</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-h">说明</div>
+        <div class="foot-links">
+          <a href="#howto">领用三步</a>
+          <a href="assets/data.js" target="_blank" rel="noopener">数据文件</a>
+          <a href="#top">回到顶部</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>最近核验 <span id="foot-date">—</span></span>
+      <span>纯静态 · 无登录 · 广告位单独标注 · 额度以官方为准</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 左右广告位：仅在宽屏（≥1580px）显示，窄屏自动隐藏，不挤占正文 -->
+<aside class="rail rail-l" aria-label="广告位">
+  <div class="rail-card">
+    <span class="rail-tag">AD</span>
+    <span class="rail-text">广告位招租</span>
+    <span class="rail-size">170 × 600</span>
+  </div>
+</aside>
+<aside class="rail rail-r" aria-label="广告位">
+  <div class="rail-card">
+    <span class="rail-tag">AD</span>
+    <span class="rail-text">广告位招租</span>
+    <span class="rail-size">170 × 600</span>
+  </div>
+</aside>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
